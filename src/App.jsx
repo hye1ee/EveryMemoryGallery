@@ -1,41 +1,30 @@
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, OrthographicCamera } from "@react-three/drei";
+import styled from "styled-components";
+import Scene from "./Scene";
 
 function App() {
   return (
-    <Canvas
-      shadows
-      raycaster={{ params: { Line: { threshold: 0.15 } } }}
-      camera={{ position: [-10, 10, 10], fov: 20 }}
-    >
-      <ambientLight intensity={0.5} />
-      <directionalLight
-        castShadow
-        position={[2.5, 10, 5]}
-        intensity={0.8}
-        shadow-mapSize={[1024, 1024]}
-      >
-        <orthographicCamera
-          attach="shadow-camera"
-          args={[-5, 5, 5, -5, 1, 50]}
-        />
-      </directionalLight>{" "}
-      <mesh position={[0.75, 0.5, 1]} castShadow receiveShadow>
-        <boxGeometry args={[0.5, 1, 0.5]} />
-        <meshStandardMaterial />
-      </mesh>
-      <mesh position={[-0.75, 0.5, -1]} castShadow receiveShadow>
-        <boxGeometry args={[0.5, 1, 0.5]} />
-        <meshStandardMaterial />
-      </mesh>
-      <mesh scale={20} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry />
-        <shadowMaterial transparent opacity={0.1} />
-      </mesh>
-      <OrbitControls enableRotate={false} />
-      <pointLight intensity={0.75} position={[5, 5, 5]} />
-    </Canvas>
+    <PageWrapper>
+      <LogoWrapper src="/public/assets/logo.png" />
+      <Scene />
+    </PageWrapper>
   );
 }
 
 export default App;
+
+const PageWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+
+  position: relative;
+`;
+
+const LogoWrapper = styled.img`
+  width: 200px;
+
+  opacity: 0.8;
+  position: absolute;
+  left: 25px;
+  top: 20px;
+  z-index: 10;
+`;
