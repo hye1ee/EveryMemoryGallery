@@ -13,7 +13,7 @@ const Body = () => {
     <PageWrapper>
       <ReactAudioPlayer
         id="backgroundMusic"
-        src="public/assets/street.mp3"
+        src="/assets/street.mp3"
         autoPlay
         loop
       />

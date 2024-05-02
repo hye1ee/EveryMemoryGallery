@@ -29,7 +29,7 @@ const Intro = (props) => {
         if (out === false) setOut(true);
       }}
     >
-      <ReactAudioPlayer id="introMusic" src="public/assets/subway.mp3" />
+      <ReactAudioPlayer id="introMusic" src="/assets/subway.mp3" />
       <TypeAnimation
         sequence={[
           "Welcome to Every Memory Gallery!",
