@@ -1,18 +1,15 @@
+import { useState } from "react";
 import styled from "styled-components";
-import Scene from "./Scene";
-import { Canvas } from "@react-three/fiber";
+import Intro from "./Intro";
+import Body from "./Body";
 
 function App() {
+  const [intro, setIntro] = useState(true);
+
   return (
     <PageWrapper>
       <LogoWrapper src="/public/assets/logo.png" />
-      <Canvas
-        shadows
-        raycaster={{ params: { Line: { threshold: 0.15 } } }}
-        camera={{ position: [-10, 10, 15], fov: 20 }}
-      >
-        <Scene />
-      </Canvas>
+      {intro ? <Intro setIntro={setIntro} /> : <Body />}
     </PageWrapper>
   );
 }

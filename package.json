@@ -15,6 +15,7 @@
     "@react-three/fiber": "^8.16.3",
     "@types/three": "^0.164.0",
     "react": "^18.2.0",
+    "react-audio-player": "^0.17.0",
     "react-dom": "^18.2.0",
     "styled-components": "^6.1.9",
     "three": "^0.164.1"
