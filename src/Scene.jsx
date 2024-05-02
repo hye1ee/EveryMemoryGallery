@@ -1,13 +1,36 @@
-import { Canvas } from "@react-three/fiber";
-import { Environment, OrbitControls } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
+import { Environment, OrbitControls, Stats } from "@react-three/drei";
+import Model from "./Model";
+import { useEffect, useState } from "react";
+import * as THREE from "three";
 
 const Scene = () => {
+  const [focus, onFocus] = useState(null);
+  const [lerp, onLerp] = useState(false);
+
+  useEffect(() => {
+    if (!focus) {
+      console.log("lerp on");
+      onLerp(true);
+      setTimeout(() => {
+        console.log("lerp off");
+        onLerp(false);
+      }, 3000);
+    }
+  }, [focus]);
+
+  useFrame((state) => {
+    if (!focus && lerp) {
+      console.log("lerping to normal");
+
+      state.camera.lookAt(new THREE.Vector3(0, 0, 0));
+      state.camera.position.lerp(new THREE.Vector3(-10, 10, 15), 0.01);
+      state.camera.updateProjectionMatrix();
+    }
+  });
+
   return (
-    <Canvas
-      shadows
-      raycaster={{ params: { Line: { threshold: 0.15 } } }}
-      camera={{ position: [-10, 10, 15], fov: 20 }}
-    >
+    <>
       <Environment files="/assets/sunset.hdr" blur={0.5} />
       <ambientLight intensity={0.5} />
       <directionalLight
@@ -20,22 +43,27 @@ const Scene = () => {
           attach="shadow-camera"
           args={[-5, 5, 5, -5, 1, 50]}
         />
-      </directionalLight>{" "}
-      <mesh position={[0.75, 0.5, 1]} castShadow receiveShadow>
-        <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial />
-      </mesh>
-      <mesh position={[-0.75, 0.5, -1]} castShadow receiveShadow>
-        <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial />
-      </mesh>
+      </directionalLight>
+      <Model focus={focus} onFocus={onFocus} model={1} pos={[0.75, 0.5, 1]}>
+        <mesh position={[0.75, 0.5, 1]} castShadow receiveShadow>
+          <boxGeometry args={[1, 1, 1]} />
+          <meshStandardMaterial />
+        </mesh>
+      </Model>
+      <Model focus={focus} onFocus={onFocus} model={2} pos={[-0.75, 0.5, -1]}>
+        <mesh position={[-0.75, 0.5, -1]} castShadow receiveShadow>
+          <boxGeometry args={[1, 1, 1]} />
+          <meshStandardMaterial />
+        </mesh>
+      </Model>
       <mesh scale={20} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry />
         <shadowMaterial transparent opacity={0.1} />
       </mesh>
-      <OrbitControls enableRotate={false} />
+      <OrbitControls enableRotate={false} enabled={!focus} makeDefault />
+      <Stats />
       <pointLight intensity={0.75} position={[5, 5, 5]} />
-    </Canvas>
+    </>
   );
 };
 export default Scene;

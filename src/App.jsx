@@ -1,11 +1,18 @@
 import styled from "styled-components";
 import Scene from "./Scene";
+import { Canvas } from "@react-three/fiber";
 
 function App() {
   return (
     <PageWrapper>
       <LogoWrapper src="/public/assets/logo.png" />
-      <Scene />
+      <Canvas
+        shadows
+        raycaster={{ params: { Line: { threshold: 0.15 } } }}
+        camera={{ position: [-10, 10, 15], fov: 20 }}
+      >
+        <Scene />
+      </Canvas>
     </PageWrapper>
   );
 }
