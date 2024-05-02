@@ -1,13 +1,14 @@
+/* eslint-disable react/prop-types */
 import styled from "styled-components";
 import Scene from "./Scene";
 import { Canvas } from "@react-three/fiber";
 import ReactAudioPlayer from "react-audio-player";
 import { useEffect } from "react";
 
-const Body = () => {
+const Body = (props) => {
   useEffect(() => {
-    document.getElementById("backgroundMusic").play();
-  }, []);
+    if (!props.intro) document.getElementById("backgroundMusic").play();
+  }, [props.intro]);
 
   return (
     <PageWrapper>

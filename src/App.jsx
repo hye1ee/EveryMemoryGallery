@@ -10,7 +10,7 @@ function App() {
     <PageWrapper>
       <LogoWrapper src="/assets/logo.png" />
       {intro && <Intro setIntro={setIntro} />}
-      <Body />
+      <Body intro={intro} />
     </PageWrapper>
   );
 }
