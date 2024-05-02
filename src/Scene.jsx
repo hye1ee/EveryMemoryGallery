@@ -24,7 +24,7 @@ const Scene = () => {
       // console.log("lerping to normal");
 
       state.camera.lookAt(new THREE.Vector3(0, 0, 0));
-      state.camera.position.lerp(new THREE.Vector3(-15, 15, 23), 0.01);
+      state.camera.position.lerp(new THREE.Vector3(-12, 12, 20), 0.01);
       state.camera.updateProjectionMatrix();
     }
     setLight([
@@ -49,7 +49,35 @@ const Scene = () => {
           args={[-20, 20, 20, -20, 1, 100]}
         />
       </directionalLight>
-      <Sculpture focus={focus} onFocus={onFocus} model={1} pos={[2, 0.5, 2]}>
+      <Sculpture
+        focus={focus}
+        onFocus={onFocus}
+        model={1}
+        pos={[0, 0, 5]}
+        foc={[-10, 5, -5]}
+        look={[0, 1.5, 0]}
+        scale={0.6}
+      />
+      <Sculpture
+        focus={focus}
+        onFocus={onFocus}
+        model={2}
+        foc={[-15, 5, -8]}
+        look={[0, 2.2, 0]}
+        pos={[4, 0, -5]}
+        scale={0.1}
+      />
+      <Sculpture
+        focus={focus}
+        onFocus={onFocus}
+        model={3}
+        foc={[-15, 5, -8]}
+        look={[0, 2.2, 0]}
+        pos={[-7, 0, 1]}
+        scale={0.7}
+      />
+
+      {/* <Sculpture focus={focus} onFocus={onFocus} model={1} pos={[2, 0.5, 2]}>
         <mesh position={[2, 0.5, 2]} castShadow receiveShadow>
           <boxGeometry args={[1, 1, 1]} />
           <meshStandardMaterial />
@@ -60,7 +88,7 @@ const Scene = () => {
           <boxGeometry args={[1, 1, 1]} />
           <meshStandardMaterial />
         </mesh>
-      </Sculpture>
+      </Sculpture> */}
       <mesh scale={100} receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry />
         <shadowMaterial transparent opacity={0.1} />

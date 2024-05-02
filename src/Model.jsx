@@ -10,20 +10,29 @@ import { useAnimations, useGLTF } from "@react-three/drei";
 
 export const Sculpture = (props) => {
   const [active, setActive] = useState(false);
+  const { scene } = useGLTF(`/assets/sculpture${props.model}.glb`);
+
+  useEffect(() => {
+    scene.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = true;
+      }
+    });
+  }, [scene]);
 
   useFrame((state) => {
     const pos = new THREE.Vector3(...props.pos);
     const lookPos = new THREE.Vector3()
       .copy(pos)
-      .add(new THREE.Vector3(0, 1, 0));
+      .add(new THREE.Vector3(...props.look));
     const focusPos = new THREE.Vector3()
       .copy(pos)
-      .add(new THREE.Vector3(-10, 5, -5));
+      .add(new THREE.Vector3(...props.foc));
 
     if (props.focus === props.model) {
       // lerp to focus position
       // console.log("lerping to focus");
-
+      scene.rotation.y += 0.005;
       state.camera.lookAt(lookPos);
       state.camera.position.lerp(focusPos, 0.01);
       state.camera.updateProjectionMatrix();
@@ -31,7 +40,7 @@ export const Sculpture = (props) => {
   });
 
   const { scale } = useSpring({
-    scale: active ? 1.2 : 1,
+    scale: active ? props.scale * 1.1 : props.scale,
     config: config.wobbly,
   });
 
@@ -40,15 +49,15 @@ export const Sculpture = (props) => {
     else props.onFocus(props.model);
   };
   return (
-    <animated.mesh
+    <animated.group
       scale={scale}
       onPointerEnter={() => setActive(true)}
       onPointerLeave={() => setActive(false)}
       onClick={onClick}
-      style={{ cursor: "pointer" }}
+      position={props.pos}
     >
-      {props.children}
-    </animated.mesh>
+      <primitive object={scene} />
+    </animated.group>
   );
 };
 
@@ -70,11 +79,12 @@ export const Building = (props) => {
 const MOVE = 0.6;
 export const Human = (props) => {
   const group = useRef();
+  const [move, setMove] = useState(false);
   const { scene, animations } = useGLTF(`/assets/human${props.index}.glb`);
   const { actions, mixer, ref } = useAnimations(animations, group);
 
   useEffect(() => {
-    if (group.current) {
+    if (group.current && !move) {
       group.current.position.set(...props.pos);
       group.current.rotation.y += (Math.PI * Math.floor(Math.random() * 4)) / 2;
 
@@ -93,6 +103,7 @@ export const Human = (props) => {
         group.current.rotation.y += Math.PI / 2;
         group.current.rotation.y %= 2 * Math.PI;
       }, props.interval);
+      setMove(true);
     }
   }, [group]);
 
