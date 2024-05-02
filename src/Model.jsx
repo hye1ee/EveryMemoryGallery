@@ -53,7 +53,7 @@ export const Sculpture = (props) => {
 };
 
 export const Building = (props) => {
-  const gltf = useLoader(GLTFLoader, `/assets/building${props.index}.glb`);
+  const gltf = useLoader(GLTFLoader, `/assets/${props.name}.glb`);
 
   useEffect(() => {
     gltf.scene.traverse((child) => {

@@ -65,13 +65,17 @@ const Scene = () => {
         <planeGeometry />
         <shadowMaterial transparent opacity={0.1} />
       </mesh>
-      <Building index={1} pos={[4, 0, 1]} scale={1} />
-      <Building index={2} pos={[4, 0, 3]} scale={0.6} />
-      <Building index={3} pos={[-2, 0, -1]} scale={0.6} />
-      <Building index={4} pos={[1, 0, -8]} scale={0.5} />
-      <Building index={5} pos={[-6, 0, -5]} scale={0.5} />
-      <Building index={6} pos={[-3, 0, -2]} scale={0.3} />
-      <Building index={7} pos={[-5, 0, 4]} scale={0.3} />
+      <Building name={"building1"} pos={[4, 0, 1]} scale={1} />
+      <Building name={"building2"} pos={[4, 0, 3]} scale={0.6} />
+      <Building name={"building3"} pos={[-2, 0, -1]} scale={0.6} />
+      <Building name={"building4"} pos={[1, 0, -8]} scale={0.5} />
+      <Building name={"building5"} pos={[-6, 0, -5]} scale={0.5} />
+      <Building name={"building6"} pos={[-3, 0, -2]} scale={0.3} />
+      <Building name={"building7"} pos={[-5, 0, 4]} scale={0.3} />
+
+      <Building name={"sign"} pos={[5, 0, 4]} scale={0.15} />
+      <Building name={"taxi"} pos={[2, 0, -4]} scale={0.2} />
+
       <Human
         index={1}
         pos={[0, 0, 0]}
