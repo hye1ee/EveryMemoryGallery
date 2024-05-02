@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+
 html,
 body {
   width: 100%;
@@ -13,4 +15,8 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+
+  font-family: "VT323", monospace;
+  font-weight: 400;
+  font-style: normal;
 }

@@ -9,7 +9,8 @@ function App() {
   return (
     <PageWrapper>
       <LogoWrapper src="/assets/logo.png" />
-      {intro ? <Intro setIntro={setIntro} /> : <Body />}
+      {intro && <Intro setIntro={setIntro} />}
+      <Body />
     </PageWrapper>
   );
 }
